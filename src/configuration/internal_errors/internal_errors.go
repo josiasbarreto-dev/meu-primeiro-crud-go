@@ -6,7 +6,7 @@ type InternalErrors struct {
 	Message string   `json:"message"`
 	Err     string   `json:"error"`
 	Code    int      `json:"code"`
-	Causes  []Causes `json:"causes,omitempty"`
+	Causes  []Causes `json:"causes" "omitempty"`
 }
 
 type Causes struct {
@@ -14,6 +14,9 @@ type Causes struct {
 	Message string `json:"message"`
 }
 
+func (e *InternalErrors) Error() string {
+	return e.Message
+}
 func NewInternalError(message, err string, code int, causes []Causes) *InternalErrors {
 	return &InternalErrors{
 		Message: message,
